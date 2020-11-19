@@ -46,12 +46,10 @@ class ImbalanceDataset(Dataset):
             for cls_idx in range(self.cls_num // 2):
                 img_num_per_cls.append(int(img_max * imb_factor))
         elif imb_type == 'minority':
-            for cls_idx in range(self.cls_num):
-                img_num_per_cls.append(int(img_max))
+            img_num_per_cls = np.array([int(img_max)] * self.cls_num)
             # set the minority group with imb_factor 
-            img_num_per_cls = np.ones(cls_num)*int(img_max)#np.array(img_num_per_cls)
             img_num_per_cls[self.minority_label] = int(img_max * imb_factor)
-            img_num_per_cls = list(img_num_per_cls)      
+            img_num_per_cls = list(img_num_per_cls)     
             
         else:
             img_num_per_cls = [int(img_max)] * self.cls_num
